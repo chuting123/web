@@ -33,6 +33,13 @@
     padding:30px;	 	 
 }
 
+input[type="text"],input[type="password"]{outline:medium;width:200px;height:40px;margin:20px 30px;text-indent: 1em;}
+
+input[type="submit"]{display:block;width:150px;margin-left:50px;margin-top:20px;background-color:#f50;color:#fff;border:none;height:40px;border-radius:10px;}
+
+label{margin:0 50px;}
+
+
 
 
 .title  ul{
@@ -64,7 +71,6 @@ li:nth-child(1):hover~ .move{    /*li元素的父元素的第一个子元素，�
    left: 0px; }
 li:nth-child(2):hover~ .move{     left: 110px; }
 li:nth-child(3):hover~ .move{     left: 220px; }
-
 
 
 .menu_list {
@@ -111,7 +117,10 @@ border-bottom: 1px solid #51a9f18c;
 .menu_nva a:hover {
 text-decoration: none;
 }
+
 </style>
+
+
 <body>
 
 <div id="header">
@@ -119,7 +128,27 @@ text-decoration: none;
 </div>
 
 
-<div id="nav">
+<div id="nav"  >
+</br>
+<div  align="center">
+<img src="tp1.jpg" width="180" height="180" />
+</div>
+<form class="form" action="">
+
+<input type="text" id="zhanghao" placeholder="请输入账号" />
+
+<input type="password" id='pass' placeholder="请输入密码" />
+
+<label for="bc"><input id="bc" type="radio" name="bc" value="1" />记住密码</label>
+</br>
+<label for="bbc"><input type="radio" id="bbc" name="bc" value="0" />不记住密码</label>
+
+<input type="submit" value="登录" />
+
+</form>
+
+</br>
+
 <div id="firstpaneDiv" class="menu_list">
 <h3 class="menu_head current">学习菜单</h3>
 <div style="display:block" class="menu_nva">
@@ -143,6 +172,8 @@ text-decoration: none;
 </div>
 </div>
  
+
+
  
 <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
@@ -158,7 +189,71 @@ $(this).addClass("current").next("div.menu_nva").slideDown(400).siblings("div.me
 $(this).siblings().removeClass("current");
 });
 });
+var bc=document.querySelector("#bc");
+
+var bbc=document.querySelector("#bbc");
+
+var form=document.querySelector(".form");
+
+var zhanghao=document.querySelector("#zhanghao");
+
+var pass=document.querySelector("#pass");
+
+if(typeof(Storage)!=="undefined")
+
+{
+
+if(localStorage.zhanghao_strorage && localStorage.pass_strorage && localStorage.bc_strorage){
+
+zhanghao.value=localStorage.zhanghao_strorage;
+pass.value=localStorage.pass_strorage;
+
+bc.setAttribute("checked","checked")
+
+}
+
+}else {
+
+ // 抱歉! 不支持 web 存储。
+
+}
+
+form.οnsubmit=function(){
+if(typeof(Storage)!=="undefined")
+{
+
+ if(bc.checked){
+? console.log("保存")
+
+ var zhanghao_val=zhanghao.value;
+
+ var pass_val=pass.value;
+
+ localStorage.setItem("zhanghao_strorage",zhanghao_val);
+
+ localStorage.setItem("pass_strorage",pass_val);
+
+ localStorage.setItem("bc_strorage","bc");
+
+}
+else{
+ localStorage.clear();//移除所有；
+
+ }
+
+ }else {
+
+// 抱歉! 不支持 web 存储。
+
+}
+}
+
+
+
 </script>
+
+
+
 </div>
 
 
