@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<body  background="tp2.jpg">
+</br>
+</br>
+</br>
+   <div style="display:block " class="menu_nva" align="center"  >
+   <p><h1>录音问答</h1></p>
+  <input onclick="startRecording()" type="button" value="录音" />
+  <input onclick="stopRecording()" type="button" value="停止" />
+  <input onclick="playRecording()" type="button" value="播放" />
+  <input onclick="uploadAudio()" type="button" value="提交" />
+  <br />
+</br>
+  <audio id="recordingslist" width="980" height="820" controls="controls" autoplay="autoplay"></audio>  
+ 
+  </br>
+<div style="color:#0000FF">
+ <p><h3>温馨提示：当点击“播放”按钮时才会显示播放进度时间等信息。</h3></p>  
+ <p><h3>温馨提示：当录音暂停播放时方可重新录音。</h3></p>    
+ <p><h3>温馨提示：请及时下载，否则语音会被覆盖。</h3></p> 
+</div>
+<script type="text/javascript" src="js/HZRecorder.js"></script>
+<script > 
+//录音
+ var recorder;
+            var audio = document.querySelector('audio');
+            function startRecording() {
+                HZRecorder.get(function(rec) {
+                    recorder = rec;
+                    recorder.start();
+                }, {
+                    sampleBits: 16,
+                    sampleRate: 16000
+                });
+            }
+            function stopRecording() {
+                recorder.stop();
+                var blob = recorder.getBlob();
+                var url = URL.createObjectURL(blob);
+                var div = document.createElement('div');
+                var au = document.createElement('audio');
+                var hf = document.createElement('a');
+                au.controls = true;
+                au.src = url;
+                hf.href = url;
+                hf.download = new Date().toISOString() + '.wav';
+                hf.innerHTML = hf.download;
+                div.appendChild(au);
+                div.appendChild(hf);
+                recordingslist.appendChild(div);
+            }
+            function playRecording() {
+                recorder.play(audio);
+            }
+            function uploadAudio() {
+                recorder.upload("Handler1.ashx", function(state, e) {
+                    switch(state) {
+                        case 'uploading':
+                            //var percentComplete = Math.round(e.loaded * 100 / e.total) + '%';
+                            break;
+                        case 'ok':
+                            //alert(e.target.responseText);
+                            alert("上传成功");
+                            break;
+                        case 'error':
+                            alert("上传失败");
+                            break;
+                        case 'cancel':
+                            alert("上传被取消");
+                            break;
+                    }
+                });
+            }
+</script> 
+</body>
+</html>

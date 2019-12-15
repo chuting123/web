@@ -281,23 +281,11 @@ else{
   </br>
   <button onclick="playVid()" type="button">播放视频</button>
   <button onclick="pauseVid()" type="button">暂停视频</button> 
-  <button onclick="recorQA()" type="button">录音问答</button> 
-  <button onclick="textQA()" type="button">文本问答</button> 
-  <button onclick="videoQA()" type="button">视频问答</button>  
+  <input type="button" value="录音问答" onclick=javascrtpt:recorQA()>
+  <input type="button" value="文本问答" onclick=javascrtpt:textQA()>
+  <input type="button" value="视频问答" onclick=javascrtpt:videoQA()>
   </br>
- </br>
-
-  <input onclick="startRecording()" type="button" value="录音" />
-  <input onclick="stopRecording()" type="button" value="停止" />
-  <input onclick="playRecording()" type="button" value="播放" />
-  <input onclick="uploadAudio()" type="button" value="提交" />
-  <br />
-
-  <audio id="recordingslist" width="580" height="420" controls="controls" autoplay="autoplay"></audio>    
-  </br>
- <p>温馨提示：当点击“播放”按钮时才会显示播放进度时间等信息。</p>   
- <p>温馨提示：请及时下载，否则语音会被覆盖。</p> 
-
+ 
 
   </br>
 <canvas id="canvas1" width="320" height="240"></canvas>
@@ -344,57 +332,32 @@ function pauseVid()
 { 
   myVideo.pause(); 
 } 
+//录音问答
+function recorQA(){
 
-//录音
- var recorder;
-            var audio = document.querySelector('audio');
-            function startRecording() {
-                HZRecorder.get(function(rec) {
-                    recorder = rec;
-                    recorder.start();
-                }, {
-                    sampleBits: 16,
-                    sampleRate: 16000
-                });
-            }
-            function stopRecording() {
-                recorder.stop();
-                var blob = recorder.getBlob();
-                var url = URL.createObjectURL(blob);
-                var div = document.createElement('div');
-                var au = document.createElement('audio');
-                var hf = document.createElement('a');
-                au.controls = true;
-                au.src = url;
-                hf.href = url;
-                hf.download = new Date().toISOString() + '.wav';
-                hf.innerHTML = hf.download;
-                div.appendChild(au);
-                div.appendChild(hf);
-                recordingslist.appendChild(div);
-            }
-            function playRecording() {
-                recorder.play(audio);
-            }
-            function uploadAudio() {
-                recorder.upload("Handler1.ashx", function(state, e) {
-                    switch(state) {
-                        case 'uploading':
-                            //var percentComplete = Math.round(e.loaded * 100 / e.total) + '%';
-                            break;
-                        case 'ok':
-                            //alert(e.target.responseText);
-                            alert("上传成功");
-                            break;
-                        case 'error':
-                            alert("上传失败");
-                            break;
-                        case 'cancel':
-                            alert("上传被取消");
-                            break;
-                    }
-                });
-            }
+   window.location.href="recor.html";
+
+}
+
+
+//文本问答
+function textQA(){
+
+   window.location.href="wenben.html";
+
+}
+
+
+//视频问答
+function videoQA(){
+
+   window.location.href="video recoder.html";
+
+}
+
+
+
+
 //视频
 
 function scamera() {
